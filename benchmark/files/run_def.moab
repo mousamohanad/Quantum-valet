@@ -1,0 +1,33 @@
+#
+########## Begin MOAB/Slurm header ##########
+#
+# Give job a reasonable name
+#MSUB -N wannier_centers_vacuum_fill_1000 
+#
+# Request number of nodes and CPU cores per node for job
+#MSUB -l nodes=1:ppn=16
+#
+# Estimated wallclock time for job
+#MSUB -l walltime=72:00:00
+#
+#MSUB -j oe 
+#
+#MSUB -m bae
+#MSUB -M thesisdatadump@gmail.com 
+########### End MOAB header ##########
+
+echo "Submit Directory:                     $MOAB_SUBMITDIR"
+echo "Working Directory:                    $PWD"
+echo "Running on host                       $HOSTNAME"
+echo "Job id:                               $MOAB_JOBID"
+echo "Job name:                             $MOAB_JOBNAME"
+echo "Number of nodes allocated to job:     $MOAB_NODECOUNT"
+echo "Number of cores allocated to job:     $MOAB_PROCCOUNT"
+echo ""
+
+module load devel/ipython/7.5.0
+module load numlib/python_scipy/0.16.1-python_numpy-1.11.2-python-3.5.7
+module load chem/vasp/5.4.4.3.16052018
+cd ${MOAB_SUBMITDIR} 
+
+python bench_job.py NUM
